@@ -1,3 +1,5 @@
 sentence-transformers>=3,<6
 pypdf>=5,<7
+numpy>=1.26
+scipy>=1.11
 jupyterlab>=4,<5

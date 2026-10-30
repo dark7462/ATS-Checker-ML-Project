@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="See how your resume skills connect to a job description in an interactive 3D match space.">
+  <title>Matchspace — see the overlap</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="/" id="brandLink" aria-label="Matchspace home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>MATCH<span class="brand-light">SPACE</span><span class="brand-dot">.</span></span>
+    </a>
+    <div class="topbar-center" aria-label="Process">01 <span>UPLOAD</span> <b></b> 02 <span>EXPLORE</span></div>
+    <button class="top-link" id="newAnalysisTop" type="button" hidden>New analysis <span aria-hidden="true">↗</span></button>
+    <span class="top-stamp" id="topStamp">VECTOR MATCH / V1</span>
+  </header>
+
+  <main class="page page-upload" id="uploadPage">
+    <section class="upload-layout">
+      <div class="intro">
+        <div class="eyebrow reveal"><span class="eyebrow-pip"></span> A BETTER WAY TO SEE YOUR FIT <span class="eyebrow-index">/ 001</span></div>
+        <h1 class="headline reveal">Where skills<br><span class="headline-shift">find their <em>orbit.</em></span></h1>
+        <p class="intro-copy reveal">Drop in a job description and your resume. Watch the distance between your skills become something you can actually see.</p>
+        <div class="mini-universe reveal" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <div class="orbit-core"></div>
+          <span class="orb orb-blue"></span><span class="orb orb-red"></span><span class="orb orb-purple"></span>
+          <span class="orbit-note orbit-note-a">JOB DNA <b>●</b></span>
+          <span class="orbit-note orbit-note-b"><b>●</b> YOUR DNA</span>
+          <span class="orbit-note orbit-note-c">THE OVERLAP ↗</span>
+        </div>
+        <div class="intro-foot reveal"><span class="small-asterisk">✳</span> BUILT FOR CURIOUS CAREERS <span class="line"></span> 2026</div>
+      </div>
+
+      <div class="upload-side reveal">
+        <div class="form-card">
+          <div class="card-head">
+            <div><span class="card-kicker">START HERE / 01</span><h2>Bring your files.</h2></div>
+            <span class="card-index">↘</span>
+          </div>
+          <form id="uploadForm" novalidate>
+            <div class="field-title"><span>01</span> Job description <small>TXT ONLY</small></div>
+            <label class="dropzone" id="jdDrop" for="jdInput" tabindex="0">
+              <input id="jdInput" name="jd" type="file" accept=".txt,text/plain" hidden>
+              <span class="drop-icon" aria-hidden="true">↗</span>
+              <span class="drop-main" id="jdName">Drop your JD here</span>
+              <span class="drop-sub" id="jdHint">or click to browse · .txt · max 250 KB</span>
+              <span class="drop-corner" aria-hidden="true">+</span>
+            </label>
+            <div class="field-title second"><span>02</span> Your resume <small>PDF ONLY</small></div>
+            <label class="dropzone" id="resumeDrop" for="resumeInput" tabindex="0">
+              <input id="resumeInput" name="resume" type="file" accept=".pdf,application/pdf" hidden>
+              <span class="drop-icon red" aria-hidden="true">↗</span>
+              <span class="drop-main" id="resumeName">Drop your resume here</span>
+              <span class="drop-sub" id="resumeHint">or click to browse · selectable PDF · max 5 MB</span>
+              <span class="drop-corner" aria-hidden="true">+</span>
+            </label>
+            <div class="form-error" id="formError" role="alert" hidden></div>
+            <button class="primary-button" id="analyzeButton" type="submit" disabled><span>Map the match</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+          </form>
+          <div class="form-foot"><span class="privacy-icon" aria-hidden="true">✳</span> Your files are processed locally and are not saved by the app.</div>
+        </div>
+        <div class="micro-caption"><span>01 / UPLOAD</span><span class="caption-line"></span><span>02 / EXPLORE THE SPACE</span></div>
+      </div>
+    </section>
+    <div class="bottom-tape" aria-hidden="true"><div class="tape-track">SIGNAL OVER NOISE <span>✳</span> FIND THE OVERLAP <span>✳</span> SIGNAL OVER NOISE <span>✳</span> FIND THE OVERLAP <span>✳</span> SIGNAL OVER NOISE <span>✳</span> FIND THE OVERLAP <span>✳</span></div></div>
+  </main>
+
+  <main class="page page-results" id="resultsPage" hidden>
+    <section class="results-head">
+      <div><div class="eyebrow"><span class="eyebrow-pip"></span> YOUR MATCH, MAPPED <span class="eyebrow-index">/ 002</span></div><h1>The space <em>between.</em></h1><p>Every dot is a skill. Every purple connection is a match.</p></div>
+      <button class="text-button" id="newAnalysis" type="button">↙ &nbsp; Try another pair</button>
+    </section>
+
+    <section class="visual-panel" aria-label="Interactive three-dimensional skill comparison">
+      <div class="visual-toolbar">
+        <div class="visual-id"><span class="live-pip"></span> LIVE SKILL MAP <small>3D PROJECTION / DRAG TO ROTATE</small></div>
+        <div class="legend" aria-label="Map legend"><span><i class="legend-dot blue"></i> JD</span><span><i class="legend-dot red"></i> RESUME</span><span><i class="legend-dot purple"></i> MATCH</span></div>
+        <div class="view-buttons"><button id="toggleMotion" type="button" aria-label="Pause rotation" title="Pause rotation">Ⅱ</button><button id="resetView" type="button" aria-label="Reset view" title="Reset view">↺</button></div>
+      </div>
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="sceneCanvas" tabindex="0" aria-label="Rotatable 3D skill map. Use arrow keys to rotate and plus or minus to zoom. Matched and missing skills are listed below."></canvas>
+        <div class="canvas-corner corner-tl" aria-hidden="true"></div><div class="canvas-corner corner-tr" aria-hidden="true"></div><div class="canvas-corner corner-bl" aria-hidden="true"></div><div class="canvas-corner corner-br" aria-hidden="true"></div>
+        <div class="canvas-index">FIG. 01 — THE SKILL UNIVERSE</div>
+        <div class="canvas-instruction">DRAG OR ARROWS TO ROTATE &nbsp; / &nbsp; SCROLL OR +/− TO ZOOM</div>
+        <div class="point-tooltip" id="pointTooltip" hidden></div>
+      </div>
+      <div class="visual-foot"><span>Blue = JD &nbsp; / &nbsp; Red = resume &nbsp; / &nbsp; Purple = scored pair</span><span>3D IS A PROJECTION · SCORE USES FULL VECTORS</span></div>
+    </section>
+
+    <section class="score-section" aria-label="Match score and skill details">
+      <div class="score-card">
+        <div class="score-label">THE MATCH SCORE <span>↗</span></div>
+        <div class="score-display"><strong id="scoreNumber">0</strong><span>%</span></div>
+        <div class="score-meter"><div id="scoreFill"></div></div>
+        <div class="score-explain" id="scoreExplain">Calculated from full-dimensional vector similarity.</div>
+        <div class="score-meta"><span id="matchedCount">0 MATCHED</span><span id="totalCount">0 JD SKILLS</span></div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-heading"><div><span class="card-kicker">LOOK CLOSER / 02</span><h2>Where you connect.</h2></div><span class="breakdown-spark" aria-hidden="true">✳</span></div>
+        <div class="breakdown-tabs" role="tablist" aria-label="Skill details"><button class="tab active" id="matchesTab" type="button" role="tab" aria-selected="true" aria-controls="skillList">Matches <span id="matchTabCount">0</span></button><button class="tab" id="missingTab" type="button" role="tab" aria-selected="false" aria-controls="skillList">Missing <span id="missingTabCount">0</span></button></div>
+        <div class="skill-list" id="skillList" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </section>
+    <footer class="results-footer"><span>MATCHSPACE © 2026</span><span>SEE THE SIGNAL.</span></footer>
+  </main>
+
+  <div class="loading-overlay" id="loadingOverlay" role="status" aria-live="polite" hidden><div class="loading-card"><div class="loading-orbit"><i></i><i></i><i></i></div><span class="card-kicker">MAPPING IN PROGRESS</span><h2 id="loadingText">Reading your files</h2><p>The first run may take longer while the embedding model loads.</p><div class="loading-line"><span></span></div></div></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
